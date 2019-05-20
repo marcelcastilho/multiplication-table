@@ -72,7 +72,6 @@ namespace MultiplicationTable.Tests {
             Assert.Equal("00011001", actual[4][4]);
             Assert.Equal("01100100", actual[9][9]);
         }
-
         
         [Fact]
         public void Should_return_hex() {

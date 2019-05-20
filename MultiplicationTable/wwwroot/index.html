@@ -2,38 +2,70 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Multiplication Table</title>
 </head>
 <body>
-    <div id="app">
-        <select v-model="matrix_size">
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
-            <option>13</option>
-            <option>14</option>
-            <option>15</option>
-        </select>
-        <span>Matrix Size: {{ matrix_size }}</span>
-        <select v-model="matrix_base">
-            <option value="10">Decimal</option>
-            <option value="2">Binary</option>
-            <option value="16">Hex</option>
-        </select>
-        <span>Matrix Base: {{ matrix_base }}</span>
+    <div id="app" class="container">
+        <h1 class="display-4">Multiplication Table</h1>
         <br />
-        <span>
-            <matrix v-bind:matrix_size="matrix_size" v-bind:matrix_base="matrix_base"></matrix>
-        </span>
+        <div class="row  align-items-start">
+            <div class="col">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="matrix_size">Matrix Size</label>
+                            <select class="form-control" v-model="matrix_size">
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="matrix base">Base</label>
+                            <select class="form-control" v-model="matrix_base">
+                                <option value="10">Decimal</option>
+                                <option value="2">Binary</option>
+                                <option value="16">Hex</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <span class="badge badge-info float-right p-2">Prime Numbers</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div>
+                    <matrix v-bind:matrix_size="matrix_size" v-bind:matrix_base="matrix_base"></matrix>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <blockquote class="blockquote text-right">
+                    <footer class="blockquote-footer">Marcel de Castilho, 2019-05-20</footer>
+                </blockquote>
+            </div>
+        </div>
     </div>
     <script src="js/app.js"></script>
 </body>

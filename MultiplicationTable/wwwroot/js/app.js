@@ -1,7 +1,7 @@
 ﻿Vue.component('matrix', {
     data: function () {
         return {
-            rows: null
+            rows: ['0']
         };
     },
     methods: {
@@ -12,7 +12,7 @@
         }
     },
     props: ['matrix_size', 'matrix_base'],
-    template: '<table><matrix-row v-for="row in rows" v-bind:row="row"></matrix-row></table> ',
+    template: '<table class="table table-bordered"><thead><tr class="text-center"><th scope="col">X</th><th class="table-active" scope="col" v-for="(cell, index) in rows[0]">{{ index + 1 }}</th></tr></thead><tbody><matrix-row v-for="(row, index) in rows" v-bind:row="row" v-bind:row_num="index" v-bind:matrix_base="matrix_base"></matrix-row></tbody></table> ',
     watch: {
         'matrix_size': function () {
             this.render();
@@ -27,13 +27,35 @@
 });
 
 Vue.component('matrix-row', {
-    props: ['row'],
-    template: '<tr><matrix-cell v-for="cell in row" v-bind:cell="cell"></matrix-cell></tr>'
+    props: ['row', 'row_num', 'matrix_base'],
+    template: '<tr class="text-center"><th class="table-active" scope="row">{{ row_num + 1 }}</th><matrix-cell v-for="(value, index) in row" v-bind:value="value" v-bind:row_num="row_num" v-bind:col_num="index" v-bind:matrix_base="matrix_base"></matrix-cell></tr>'
 });
 
 Vue.component('matrix-cell', {
-    props: ['cell'],
-    template: '<td>{{ cell }}</td>'
+    props: ['value', 'row_num', 'col_num', 'matrix_base'],
+    template: `<td v-bind:class="{ 'table-active': isDiagonal }" v-tooltip="calculation"><span v-bind:class="{ 'badge badge-info p-2': isPrime }">{{ value }}</span></td>`,
+    computed: {
+        isDiagonal: function () {
+            return this.row_num === this.col_num;
+        },
+        isPrime: function () {
+            var value = parseInt(this.value, this.matrix_base);
+            for (var i = 2; i < value; i++)
+                if (value % i === 0) return false;
+            return value > 1;
+        },
+        calculation: function () {
+            return this.row_num + 1 + 'X' + (this.col_num + 1) + '=' + this.value;
+        }
+    }
+});
+
+Vue.directive('tooltip', function (el, binding) {
+    $(el).tooltip({
+        title: binding.value,
+        placement: 'top',
+        trigger: 'hover'
+    });
 });
 
 var app = new Vue({

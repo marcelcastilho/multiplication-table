@@ -35,17 +35,20 @@ Vue.component('matrix-cell', {
     props: ['value', 'row_num', 'col_num', 'matrix_base'],
     template: `<td v-bind:class="{ 'table-active': isDiagonal }" v-tooltip="calculation"><span v-bind:class="{ 'badge badge-info p-2': isPrime }">{{ value }}</span></td>`,
     computed: {
+        decimalValue: function () {
+            return parseInt(this.value, this.matrix_base);
+        },
         isDiagonal: function () {
             return this.row_num === this.col_num;
         },
         isPrime: function () {
-            var value = parseInt(this.value, this.matrix_base);
-            for (var i = 2; i < value; i++)
-                if (value % i === 0) return false;
-            return value > 1;
+            for (var i = 2; i < this.decimalValue; i++)
+                if (this.decimalValue % i === 0) return false;
+            return this.decimalValue > 1;
         },
         calculation: function () {
-            return this.row_num + 1 + 'X' + (this.col_num + 1) + '=' + this.value;
+            var value = parseInt(this.value, this.matrix_base);
+            return this.row_num + 1 + 'X' + (this.col_num + 1) + '=' + this.decimalValue;
         }
     }
 });
